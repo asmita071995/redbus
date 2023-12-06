@@ -1,0 +1,39 @@
+<div class="container">
+    <head >
+      <h2><h1 class="text-dark text-center text-uppercase"><dt>Transactions</dt></h1></h2>
+      <hr>
+    <table class=" table table-bordered table-hover" data-sort-name="name" 
+    data-sort-order="desc">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Name</th>
+          <th data-field="name" data-sortable="true">Amount</th>
+          <th data-field="name" data-sortable="true">Discription</th>
+          <th data-field="name" data-sortable="true">Date</th>
+          <th data-field="name" data-sortable="true">Total amount is INR <span id='wallet_total'><%= @wallet_amt&.total_balance %></span></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+             <td id="description"><%= transaction.description %></td>
+             <td><%= transaction.created_at %></td>
+              <td>
+                <span class='final_amt'>
+                  <%= (transaction.customer.wallet.total_balance.to_i - transaction.amount.to_i).to_s %>
+                </span>
+              </td>
+         </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+  console.log('hello')
+  $('tr.tran_list').each(function() {
+  debugger;
+  });
+</script>

@@ -1,0 +1,74 @@
+<div class="container mt-4"> 
+  <% if current_user.is_customer? %>
+    <h2><h1 class="text-success text-center text-uppercase"><dt>Congratulations!!!!!!</dt></h1></h2>
+    <h2><h1 class="text-warning text-center">You Can See Your Booking Information as Below</h1></h2><hr>
+  <%else%>
+    <h2><h1 class="text-warning text-center">You Can See All Cutomers Booking Information as Below</h1></h2><hr>
+  <%end%>
+  <%= form_tag(bookings_path, :method=> "get") do %>
+      <div class="input-group">
+        <div>
+          <%= search_field_tag :search, params[:search], placeholder:"Type Here",class: "form-control",required: true%>
+        </div>
+        <div class="row">
+          <div class="input-group-btn col-xs-8">
+            <%= button_tag "Search", :class => 'btn btn-info glyphicon-search',:name => nil%>
+          </div>
+        </div>
+      </div>  
+  <% end %>
+  <table class="table table-hover table-bordered text-center table-sm mt-4">
+      <thead>
+        <tr>
+          <th>Booking Id</th>
+          <th>Bus Name</th>
+          <th>User Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Boarding Point</th>
+          <th>Drop Point</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+          <th>Ticket No</th>
+          <th>Booking Status</th>
+          <% if current_user.type == 'Admin' %>
+            <th style="color: red;">Action Buttons</th>
+          <%end%>
+        </tr>
+      </thead>
+    <tbody>
+      <% @bookings.each do |booking| %>  
+        <tr> 
+          <td><%= booking.id %></td>
+          <td><%= booking.bus.name %></td>
+          <td><%= booking.customer.name %></td>
+          <td><%= booking.bus_route.from_city.name %></td>
+          <td><%= booking.bus_route.to_city.name %></td>
+          <td><%= booking.pickup_point.point %></td>
+          <td><%= booking.drop_point.point %></td>           
+          <td><%= booking.bus.departure_time %></td>
+          <td><%= booking.bus.arrival_time %></td>   
+          <td><%= booking.ticket_no %></td>
+          <% if booking.status == "confirmed"%>
+            <td><span style="color:green"><%= booking.status %></span></td>
+          <%else%>
+            <td><span style="color:red"><%= booking.status %></span></td>
+          <%end%>
+          <% if current_user.type == 'Admin' %>
+            <%if booking.status == 'pending'%>
+              <td><%= link_to "Confirm", confirm_path(id: booking.id), 
+               data: { turbo_method: :get, turbo_confirm: "Are you sure to confirm?" },
+               class: "btn btn-success"%>
+              <%= link_to "Cancel", cancel_path(id: booking.id), 
+               data: { turbo_method: :get, turbo_confirm: "Are you sure to cancel?" },
+               class: "btn btn-danger mt-1"%>
+              </td>
+            <%end%>
+          <%end%>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+
+

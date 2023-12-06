@@ -1,0 +1,23 @@
+<h1>Bus Deatils is</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Number</th>
+    <th>Seats</th>
+  </tr>
+  <tr>
+    <td><%= @bus.id %></td>
+    <td><%= @bus.name %></td>
+    <td><%= @bus.number %></td>
+    <td><%= @bus.total_seats %></td>
+  </tr>
+</table>
+
+<ul>
+  <li><%= link_to "Edit Your Bus", edit_bus_path(@bus) %></li>
+</ul>
+
+<li><%= link_to "Delete Your Bus", bus_path(@bus), data: {
+  turbo_method: :delete,turbo_confirm: "Are you sure?"} %></li>

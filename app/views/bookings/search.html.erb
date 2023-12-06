@@ -1,0 +1,25 @@
+<div class="container"> 
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Booking Id</th>
+        <th>Bus Name</th>
+        <th>User Name</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Boarding Point</th>
+        <th>Drop Point</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Ticket No</th>
+        <th>Booking Status</th>
+        <% if current_user.type == 'Admin' %>
+          <th style="color: red;">Action Buttons</th>
+        <%end%>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => 'book', :locals => { :bookings => @results } %>
+    </tbody>
+  </table>
+</div>

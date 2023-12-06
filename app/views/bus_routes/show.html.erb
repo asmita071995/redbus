@@ -1,0 +1,35 @@
+<div class="container">
+    <head >
+      <h2><h1 class="text-dark text-center text-uppercase"><dt>Bus Details</dt></h1></h2><hr>
+    </head>
+    <table class=" table table-bordered table-hover" data-sort-name="name" 
+    data-sort-order="desc">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Bus Name</th>
+          <th data-field="number" data-sortable="true">Bus Number</th>
+          <th data-field="date" data-sortable="true">Departure Time</th>
+          <th data-field="date" data-sortable="true">Arrival Time</th>
+          <th>Action Buttons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @buses.each do |bus| %>
+          <tr>
+            <td><%= bus.name %></td>
+            <td><%= bus.number %></td>
+            <td> <%= bus.departure_time %></td>
+            <td><%= bus.arrival_time %></td>
+            <td><%= link_to "Update Bus", edit_bus_path(id: bus.id,bus_route_id:bus.bus_route.id), :class => "btn btn-success btn-sm" %>
+              <%= link_to "Delete Bus", bus, data: {turbo_method: :delete,turbo_confirm: 
+              "Are you sure?"},:class => "btn btn-danger btn-sm" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="btn btn-primary">
+      <%= link_to "Back", bus_routes_path, :class => "btn btn-primary btn-sm" %>
+    </div>
+</div>
+
+  

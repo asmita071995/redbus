@@ -1,0 +1,49 @@
+<div class="container">
+  <%= form_with model: @bus do  |form| %>
+
+    <%= form.hidden_field :bus_route_id, :value => params[:bus_route_id] %>
+
+    <div class="form-group">
+      <div class="form-group">
+        <%= form.label :name %><br>
+        <%= form.text_field :name, class:"form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :number %><br>
+        <%= form.text_field :number,class:"form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :total_seats %><br>
+        <%= form.text_field :total_seats,class:"form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :available_seats %><br>
+        <%= form.text_field :available_seats,class:"form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :departure_date %><br>
+        <%= form.datetime_field :departure_time,class:"form-control",
+          required: true %>
+      </div>
+
+      <div>
+        <%= form.label :arrival_date %><br>
+        <%= form.datetime_field :arrival_time,class:"form-control",
+        required: true %>
+      </div>
+
+      <div>
+        <%= form.label :fare %><br>
+        <%= form.text_field :fare,class:"form-control" %>
+      </div><br>
+
+      <div>
+        <%= form.submit 'Submit', class: 'btn btn-primary' %>
+      </div>
+    <div>
+  <% end %>
+<div>

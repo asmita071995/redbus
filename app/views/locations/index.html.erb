@@ -1,0 +1,32 @@
+<div class="container">
+    <head >
+      <h2><h1 class="text-dark text-center text-uppercase"><dt>Locations</dt></h1></h2>
+      <hr>
+    </head>
+    <table class=" table table-bordered table-hover" data-sort-name="name" 
+    data-sort-order="desc">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Location Points</th>
+          <th>Action Buttons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @locations.each do |location| %>
+          <tr>
+            <td><%= location.point %></td>
+             <td>
+             	<%= link_to "Update Location", edit_location_path(id: location.id), :class => "btn btn-success btn-sm" %>
+              <%= link_to "Delete Location", location, data: {turbo_method: :delete,turbo_confirm: "Are you sure?"},:class => "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="btn btn-primary">
+    	<%= link_to "Create", new_location_path(city_id: params[:city_id]), :class => "btn btn-primary btn-sm"%>
+    </div>
+    <div class="btn btn-primary">
+      <%= link_to "Back", cities_path, :class => "btn btn-primary btn-sm" %><br>
+    </div>
+</div>

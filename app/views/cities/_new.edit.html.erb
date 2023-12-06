@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <%= form_with model:@city do |city| %>
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-3">
+          <%= city.label :city_name, { class: "form-label"} %>
+          <%= city.text_field :name, { class: "form-control", placeholder: "City Name" } %>
+        </div>
+        <%= city.submit "Submit", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

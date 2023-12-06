@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 p-5">
+      <h2><h1 class="text-danger text-center text-uppercase"><dt>Sign-Up</dt></h1></h2><hr>
+      <%= form_with model: @user, url: users_path do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :mobile_no %>
+          <%= f.number_field :mobile_no, class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "form-control", required: true %>
+        </div>
+        <div style="margin-top: 8px;">
+          <%= f.submit "Sign up", class: "btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

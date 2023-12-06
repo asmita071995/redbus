@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  <h2>
+    <h1 class="text-dark text-center text-uppercase"><dt>Cities</dt></h1>
+  </h2><hr>    
+  <table class="table table-striped table-bordered table-hover table-info">
+    <thead class="text-center">
+      <tr>
+        <th>Id</th>
+        <th>City Name</th>
+        <th style="color: red;">Action Buttons</th>
+      </tr>
+    </thead>
+    <tbody>
+	    <% @cities.each do |cities| %>
+	      <tr class="text-center">
+	        <td><%= cities.id %></td>
+	        <td><%= cities.name %></td>     
+	        <td>
+	         <%= link_to "Update City", edit_city_path(cities.id), :class => "btn btn-success btn-sm" %>
+	         <%= link_to "Delete City", cities, data: {turbo_method: :delete,turbo_confirm: "Are you sure?"}, :class => "btn btn-danger btn-sm"%>
+           <%= link_to "Show Locations", locations_path(city_id: cities.id), :class => "btn btn-info btn-sm" %>
+	       </td>
+	      </tr>
+	    <% end %>
+    </tbody> 
+  </table>
+  <div class="btn btn-primary">
+    <%= link_to "Create City", new_city_path, :class => "btn btn-primary btn-sm" %>
+  </div>
+  <div class="btn btn-primary">
+    <%= link_to "Back", bus_routes_path, :class => "btn btn-primary btn-sm" %>
+  </div>
+</div>

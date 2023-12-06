@@ -1,0 +1,12 @@
+<%= form_with model: @location  do |location| %>
+  <%= location.hidden_field :city_id, :value => params[:city_id] %>
+	<div class="card">
+	  <div class="card-body">
+	    <div class="mb-3">
+	      <%= location.label :Location_name, { class: "form-label"} %>
+	      <%= location.text_field :point, { class: "form-control", placeholder: "Fill Locations" } %>
+	    </div>
+	    <%= location.submit "Submit", class: "btn btn-primary" %>
+	  </div>
+	</div>
+<% end %>

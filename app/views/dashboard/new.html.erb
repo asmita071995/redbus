@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 100px">
+    <div class="col-md-6">
+      <h1 style="margin-top: 10px;margin-left: 80px;color:dark;">
+        Welcome Dear <%=current_user.name%><br>To<span style="color:red"> Red</span>Bus.com
+      </h1><hr><br>
+      <%= form_with url:dashboard_index_path, local: true, method: :get do |f| %>
+        <div class="form-group">
+          <%= f.label :from %>
+          <%= f.select :from_id, options_for_select(@city),{},{class: "form-select form-select-lg mb-3"}
+          %>
+        </div>
+        <div class="form-group">
+          <%= f.label :to %>
+          <%= f.select :to_id, options_for_select(@city),{},class: "form-select form-select-lg mb-3 form-select"%>
+        </div>
+        <div class="form-group">
+          <%= f.label :date %>
+          <%= f.date_field :date, class: "form-control",selected: Date.today, min: 0.days.ago,
+          max: 1.year.from_now, required: true%>
+        </div>
+
+        <% if current_user.type == 'Customer' %>
+          <%= submit_tag 'Search', class: "btn btn-primary btn-block mt-2" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
