@@ -1,0 +1,27 @@
+
+<h1>List of Users</h1>
+
+<% if @users.present? %>
+  <table class="table table-hover table-bordered text-center table-sm mt-4 user-table">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Type</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.type %></td>
+          <td>
+            <%= link_to 'Update', edit_user_path(user), class: 'btn btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No users found.</p>
+<% end %>

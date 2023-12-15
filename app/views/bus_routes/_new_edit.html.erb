@@ -1,0 +1,17 @@
+<%= form_with model: @bus_route do |route| %>
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <%= route.label :from_city,{ class: "form-label"}%>
+        <%= route.collection_select(:from_id, @cities, :id, :name,{:include_blank => true},
+        {class: "form-select-lg mb-3 form-control"})%>
+      </div class="mb-3">
+      <div>
+        <%= route.label :to_city%>
+        <%= route.collection_select(:to_id, @cities, :id, :name, {:include_blank => true}, 
+        {class: "form-select-lg mb-3 form-control"})%>
+      </div><br>
+        <%= route.submit "Submit", class: "btn btn-primary"%> 
+    </div>
+  </div>
+<% end %>

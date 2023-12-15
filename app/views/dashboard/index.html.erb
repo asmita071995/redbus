@@ -1,33 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bus Details</title>
   <%= stylesheet_link_tag 'style', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
   <div class="container d-flex justify-content-center align-items-center h">
     <div class="row">
-      <h2>
-        <h1 class="text-dark text-center text-uppercase">
-          <dt>Bus Details</dt>
-        </h1></h2><hr>
+      <div class="col-12">
+        <h1 class="text-dark text-center text-uppercase">Bus Details</h1>
+        <hr>
+      </div>
       <% @buses.each do |mybus| %>
         <div class="col-md-4 mb-4">
           <div class="card bg-light text-dark rounded shadow">
             <div class="card-body">
-                <h5 class="card-title"><%= mybus.name %></h5>
-                <p class="card-text">
-                  Bus Number: <%= mybus.number %><br>
-                  Departure Time: <%=mybus.departure_time%>
-                  <br>
-                  Arrival Time: <%=mybus.arrival_time%>
-                </p>
-                <% if current_user.type == 'Customer' %>
-                  <%= link_to "View Details", new_booking_path(bus_id: mybus.id,
-                  from_id: mybus.bus_route.from_id,
-                  to_id: mybus.bus_route.to_id), class: "btn btn-primary" %>
-                <% elsif current_user.type == 'Admin' %>
-                  <%= link_to "See All Bookings",
-                  bookings_path, class: "btn btn-primary" %>
-                <% end %>
+              <h5 class="card-title"><%= mybus.name %></h5>
+              <p class="card-text">
+                Bus Number: <%= mybus.number %><br>
+                Departure Time: <%= mybus.departure_time %><br>
+                Arrival Time: <%= mybus.arrival_time %>
+              </p>
+              <% if current_user.type == 'Customer' %>
+                <%= link_to "View Details",
+                            new_booking_path(bus_id: mybus.id,
+                                             from_id: mybus.bus_route.from_id,
+                                             to_id: mybus.bus_route.to_id),
+                            class: "btn btn-primary" %>
+              <% elsif current_user.type == 'Admin' %>
+                <%= link_to "See All Bookings",
+                            bookings_path,
+                            class: "btn btn-primary" %>
+              <% end %>
             </div>
           </div>
         </div>
@@ -35,3 +41,4 @@
     </div>
   </div>
 </body>
+</html>

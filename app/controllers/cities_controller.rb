@@ -2,7 +2,7 @@ class CitiesController < ApplicationController
   
   include AccessHelper
   
-  before_action :set_city, only: [:new, :edit, :update, :destroy, :show]
+  before_action :set_city, only: [:new, :edit, :update, :destroy, :show, :create]
   before_action :reject_non_admins
 
   def index
@@ -53,6 +53,14 @@ class CitiesController < ApplicationController
   def set_city
     @city = City.find_by(id: params[:id])
   end
+
+  def logged_in_user
+    unless current_user
+      flash[:danger] = "Please log in"
+      redirect_to login_url
+    end
+  end
+
 
 end
 

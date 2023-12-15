@@ -1,9 +1,7 @@
 class BusesController < ApplicationController
-
-  # Filter For the actions
   include AccessHelper
   before_action :set_bus_detail, only: [:show, :edit, :update, :destroy]
-  before_action :reject_non_admins
+  before_action :reject_non_admins, except: [:index, :show]
 
   def index
     @buses = Bus.all
@@ -15,7 +13,8 @@ class BusesController < ApplicationController
 
   def create
     bus_route = BusRoute.find_by(id: params[:bus][:bus_route_id])
-    @bus = bus_route.buses.create(bus_params)
+    @bus = bus_route.buses.build(bus_params)
+
     if @bus.save
       flash[:notice] = "Bus has been created successfully."
       redirect_to bus_routes_path
@@ -27,8 +26,8 @@ class BusesController < ApplicationController
 
   def update
     if @bus.update(bus_params)
-      flash[:notice] = "Bus Updated"
-      redirect_to  bus_routes_path
+      flash[:notice] = "Bus updated successfully."
+      redirect_to bus_routes_path
     else
       flash.now[:error] = @bus.errors.full_messages
       render :edit
@@ -37,22 +36,28 @@ class BusesController < ApplicationController
 
   def destroy
     if @bus.destroy
-      flash[:notice] = "Bus has Deleted"
-      redirect_to bus_route_path(bus_route_id: params[:bus_route_id])
+      flash[:notice] = "Bus has been deleted successfully."
     else
       flash[:error] = @bus.errors.full_messages
-      redirect_to bus_route_path(bus_route_id: params[:bus_route_id])
     end
+
+    redirect_to bus_routes_path
   end
 
   private
 
   def bus_params
-    params.require(:bus).permit(:name, :number, :total_seats,:available_seats,:departure_time,:arrival_time,:fare,:bus_route_id)
+    params.require(:bus).permit(:name, :number, :total_seats, :available_seats, :departure_time, :arrival_time, :fare, :bus_route_id)
+  end
+
+  def logged_in_user
+    unless current_user
+      flash[:danger] = "Please log in"
+      redirect_to login_url
+    end
   end
 
   def set_bus_detail
     @bus = Bus.find_by_id(params[:id])
   end
-
 end

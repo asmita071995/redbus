@@ -32,10 +32,22 @@ class SessionsController < ApplicationController
       end
    end
 
+
+
   def destroy
     session[:user_id] = nil
     flash[:notice] = "You have Been Signed Out."
     redirect_to root_url
+  end
+
+  private
+
+  
+  def logged_in_user
+    unless current_user
+      flash[:danger] = "Please log in"
+      redirect_to login_url
+    end
   end
 end
 

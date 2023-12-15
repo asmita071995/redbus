@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
     get 'homes/index'
     get 'homes/contact'
   
@@ -40,6 +40,5 @@ Rails.application.routes.draw do
   get '/confirm', to: 'bookings#confirm'
   get '/cancel', to: 'bookings#cancel'
   get '/refund', to: 'bookings#refund'
-  # Defines the root path route ("/")
-  # root "articles#index"
+ 
 end

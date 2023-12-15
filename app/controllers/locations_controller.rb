@@ -3,6 +3,7 @@ class LocationsController < ApplicationController
   include AccessHelper
   before_action :set_locations, only: [:show, :edit, :update, :destroy]
   before_action :reject_non_admins
+  before_action :logged_in_user
 
   def index
     @locations = Location.where(city_id: params[:city_id])
@@ -51,6 +52,13 @@ class LocationsController < ApplicationController
   private 
   def location_param
     params.require(:location).permit(:id, :point, :city_id)
+  end
+
+  def logged_in_user
+    unless current_user
+      flash[:danger] = "Please log in"
+      redirect_to login_url
+    end
   end
   
 end
