@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>
+    <h1 class="text-danger text-center text-uppercase">
+      <dt>Fill Bus Details</dt>
+    </h1>
+  </h2><hr>
+  <p class="mb-3">Total Seats: <%= @bus.total_seats %></p>
+  <p class="mb-3">Available Seats: <%= @bus.available_seats %></p>
+  Fare Price: <input class="mb-3" 
+  id="ticket_price", value="<%= @bus.fare %>" readonly> 
+  <h3>Book Seats</h3>
+  <%= form_with(model: [@bus, @booking], url: bookings_path, method: :post, class: 'mb-3') do |form|%>
+    <%= form.hidden_field :bus_id, value: @bus.id %>
+    <%= form.hidden_field :from_id, value: params[:from_id] %>
+    <%= form.hidden_field :to_id, value: params[:to_id] %>
+    <div class="form-group">
+      <%= form.label :Seats, class: 'form-label'%>
+      <%= form.number_field :seat_booked, class: 'form-control',
+      id:"seat_booked",required: true, min:'1'  %>
+    </div>
+    <h3>From Boarding Point</h3>
+    <div class="form-group">
+      <%= form.label :from_point, class: 'form-label' %>
+      <%= form.collection_select :pickup_point_id, @from_locations, :id, :point, {}, 
+      {class: 'form-select'} %>
+    </div>
+    <h2>To Drop Point</h2>
+    <div class="form-group">
+      <%= form.label :to_point, class: 'form-label' %>
+      <%= form.collection_select :drop_point_id, @to_locations, :id, :point,
+      {},{class: 'form-select'} %>
+    </div>
+    <br><div>
+      <%= form.label :total_amt, "Final Amount", class: 'form-label' %>
+      <input class="mb-3 name = "total_amt" id = "total_amt" readonly>
+    </div>
+    <div style="margin-top: 10px;">
+      <%= form.submit 'Book Bus', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  var total_seatsIn = document.getElementById('seat_booked');
+  var ticket_priceIn = document.getElementById('ticket_price');
+  var final_amountIn = document.getElementById('total_amt');
+
+  function calTotalAmt(){
+    var seats = parseInt(total_seatsIn.value);
+    var price = parseFloat(ticket_priceIn.value);
+    console.log(seats)
+    console.log(price)
+    var final = seats*price;
+    console.log(final)
+    final_amountIn.value = final.toFixed(2);
+  }
+  total_seatsIn.addEventListener("input", calTotalAmt);
+</script>
